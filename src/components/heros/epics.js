@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import { ajax } from 'rxjs/ajax';
 import { HEROS } from './action-types';
 
-const fetchHero = payload => ajax.getJSON(`/api/characters/${payload}`);
+const fetchHero = payload => ajax.getJSON(`http://api-heros.voloz.in/characters/${payload}`);
 
 const herosFullfilled = (payload, { redirect }) => ({
   type: HEROS.SUCCESS,

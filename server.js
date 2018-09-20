@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const cors = require('cors');
 const characters = require('./lib/characters.json');
 const API_URL = 'http://superheroapi.com/api';
 const TOKEN = process.env.SUPERHERO;
@@ -10,15 +11,16 @@ const utils = require('./lib/utils');
 const buildUrl = id => [API_URL, TOKEN, id].join('/');
 
 const app = express();
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+app.use(cors());
 app.get('/', function(req, res) {
   res.send('sample-node-api is up and running now');
 });
 
-app.get('/api/characters/all', (req, res) => res.json(characters));
+app.get('/characters/all', (req, res) => res.json(characters));
 
-app.get('/api/characters/:id', (req, res) => {
+app.get('/characters/:id', (req, res) => {
   console.log('id', req.params.id);
   console.log('url', buildUrl(req.params.id));
   if (!req.params.id) return res.sendStatus(400);
